@@ -7,21 +7,21 @@
     <var name="order" class="com.springinaction.pizza.domain.Order"/>
     
     <!-- Customer -->
-    <subflow-state id="customer" subflow="pizza/customer">
+    <subflow-state id="customer" subflow="pizza/customer"> <!--调用顾客子流程-->
       <input name="order" value="order"/>
       <transition on="customerReady" to="order" />
     </subflow-state>
     
     <!-- Order -->
-    <subflow-state id="order" subflow="pizza/order">
+    <subflow-state id="order" subflow="pizza/order">   <!--调用订单子流程-->
       <input name="order" value="order"/>
       <transition on="orderCreated" to="payment" />
     </subflow-state>
         
     <!-- Payment -->
-    <subflow-state id="payment" subflow="pizza/payment">
+    <subflow-state id="payment" subflow="pizza/payment"> <!--调用支付子流程-->
       <input name="order" value="order"/>
-      <transition on="paymentTaken" to="saveOrder"/>      
+      <transition on="paymentTaken" to="saveOrder"/>     <!--保存订单-->
     </subflow-state>
         
     <action-state id="saveOrder">
@@ -29,7 +29,7 @@
         <transition to="thankYou" />
     </action-state>
     
-    <view-state id="thankYou">
+    <view-state id="thankYou">   <!--感谢顾客-->
       <transition to="endState" />
     </view-state>
                 
