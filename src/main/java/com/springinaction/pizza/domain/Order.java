@@ -1,21 +1,21 @@
 package com.springinaction.pizza.domain;
 
+import org.springframework.beans.factory.annotation.Configurable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Configurable;
-
 @Configurable("order")
 public class Order implements Serializable {
    private static final long serialVersionUID = 1L;
-   private Customer customer;
-   private List<Pizza> pizzas;
-   private Payment payment;
+   private Customer customer;  //顾客
+   private List<Pizza> pizzas; //披萨
+   private Payment payment;  //付款
 
    public Order() {
-      pizzas = new ArrayList<Pizza>();
-      customer = new Customer();
+      pizzas = new ArrayList<Pizza>();  //list列表形式 添加多个披萨
+      customer = new Customer();        //创建一个顾客
    }
 
    public Customer getCustomer() {

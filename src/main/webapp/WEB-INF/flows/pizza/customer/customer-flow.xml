@@ -12,15 +12,16 @@
         <transition on="cancel" to="cancel"/>
     </view-state>
     
-    <action-state id="lookupCustomer">
+    <action-state id="lookupCustomer"> <!--查找顾客-->
         <evaluate result="order.customer" expression=
             "pizzaFlowActions.lookupCustomer(requestParameters.phoneNumber)" />
         <transition to="registrationForm" on-exception=
             "com.springinaction.pizza.service.CustomerNotFoundException" />
         <transition to="customerReady" />
     </action-state>
-    
-    <view-state id="registrationForm" model="order" popup="true" >
+
+
+    <view-state id="registrationForm" model="order" popup="true" > <!--注册新顾客-->
         <on-entry>
           <evaluate expression=
               "order.customer.phoneNumber = requestParameters.phoneNumber" />
@@ -29,18 +30,19 @@
         <transition on="cancel" to="cancel" />
     </view-state>
     
-    <decision-state id="checkDeliveryArea">
+    <decision-state id="checkDeliveryArea">  <!--检查配送区域-->
       <if test="pizzaFlowActions.checkDeliveryArea(order.customer.zipCode)" 
           then="addCustomer" 
           else="deliveryWarning"/>
     </decision-state>
-    
-    <view-state id="deliveryWarning">
+
+
+    <view-state id="deliveryWarning">  <!--显示配送警告-->
         <transition on="accept" to="addCustomer" />
         <transition on="cancel" to="cancel" />
     </view-state>
     
-    <action-state id="addCustomer">
+    <action-state id="addCustomer"> <!--添加顾客-->
         <evaluate expression="pizzaFlowActions.addCustomer(order.customer)" />
         <transition to="customerReady" />
     </action-state>
@@ -48,4 +50,5 @@
     <!-- End state -->
     <end-state id="cancel" />
     <end-state id="customerReady" />
+
 </flow>
